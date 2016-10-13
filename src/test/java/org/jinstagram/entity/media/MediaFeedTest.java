@@ -1,4 +1,4 @@
-package org.jinstagram.entity.users.feed;
+package org.jinstagram.entity.media;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.jinstagram.entity.common.Meta;
 import org.jinstagram.entity.common.Pagination;
+import org.jinstagram.entity.users.feed.MediaFeedData;
 import org.junit.Test;
 
 /**

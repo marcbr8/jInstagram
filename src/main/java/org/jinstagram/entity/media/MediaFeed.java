@@ -1,4 +1,4 @@
-package org.jinstagram.entity.tags;
+package org.jinstagram.entity.media;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -9,7 +9,7 @@ import org.jinstagram.entity.users.feed.MediaFeedData;
 
 import java.util.List;
 
-public class TagMediaFeed extends InstagramObject{
+public class MediaFeed extends InstagramObject{
 	@SerializedName("data")
 	private List<MediaFeedData> data;
 
@@ -63,6 +63,6 @@ public class TagMediaFeed extends InstagramObject{
 
     @Override
     public String toString() {
-        return String.format("TagMediaFeed [data=%s, meta=%s, pagination=%s]", data, meta, pagination);
+        return String.format("MediaFeed [data=%s, meta=%s, pagination=%s]", data, meta, pagination);
     }
 }

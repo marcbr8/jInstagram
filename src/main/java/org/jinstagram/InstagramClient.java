@@ -11,10 +11,9 @@ import org.jinstagram.entity.locations.LocationSearchFeed;
 import org.jinstagram.entity.media.MediaInfoFeed;
 import org.jinstagram.entity.relationships.RelationshipFeed;
 import org.jinstagram.entity.tags.TagInfoFeed;
-import org.jinstagram.entity.tags.TagMediaFeed;
 import org.jinstagram.entity.tags.TagSearchFeed;
 import org.jinstagram.entity.users.basicinfo.UserInfo;
-import org.jinstagram.entity.users.feed.MediaFeed;
+import org.jinstagram.entity.media.MediaFeed;
 import org.jinstagram.entity.users.feed.UserFeed;
 import org.jinstagram.exceptions.InstagramException;
 import org.jinstagram.model.Relationship;
@@ -158,7 +157,7 @@ public interface InstagramClient {
      * @param pagination
      * @throws InstagramException
      */
-    TagMediaFeed getTagMediaInfoNextPage(Pagination pagination)
+    MediaFeed getTagMediaInfoNextPage(Pagination pagination)
             throws InstagramException;
 
     /**
@@ -469,11 +468,11 @@ public interface InstagramClient {
      *
      * @param tagName
      *            name of the tag.
-     * @return a TagMediaFeed object.
+     * @return a MediaFeed object.
      * @throws InstagramException
      *             if any error occurs.
      */
-    TagMediaFeed getRecentMediaTags(String tagName) throws InstagramException;
+    MediaFeed getRecentMediaTags(String tagName) throws InstagramException;
 
     /**
      * Get a list of recently tagged media.
@@ -482,11 +481,11 @@ public interface InstagramClient {
      *            name of the tag.
      * @param count,
      *            set to 0 to use default
-     * @return a TagMediaFeed object.
+     * @return a MediaFeed object.
      * @throws InstagramException
      *             if any error occurs.
      */
-    TagMediaFeed getRecentMediaTags(String tagName, long count)
+    MediaFeed getRecentMediaTags(String tagName, long count)
             throws InstagramException;
 
     /**
@@ -498,11 +497,11 @@ public interface InstagramClient {
      *            (return media before this tag_id), can be null
      * @param maxTagId
      *            (return media before this tag_id), can be null
-     * @return a TagMediaFeed object.
+     * @return a MediaFeed object.
      * @throws InstagramException
      *             if any error occurs.
      */
-    TagMediaFeed getRecentMediaTags(String tagName, String minTagId,
+    MediaFeed getRecentMediaTags(String tagName, String minTagId,
             String maxTagId) throws InstagramException;
 
     /**
@@ -516,11 +515,11 @@ public interface InstagramClient {
      *            (return media before this tag_id), can be null
      * @param count,
      *            set to 0 to use default
-     * @return a TagMediaFeed object.
+     * @return a MediaFeed object.
      * @throws InstagramException
      *             if any error occurs.
      */
-    TagMediaFeed getRecentMediaTags(String tagName, String minTagId,
+    MediaFeed getRecentMediaTags(String tagName, String minTagId,
             String maxTagId, long count) throws InstagramException;
 
     /**
@@ -528,11 +527,11 @@ public interface InstagramClient {
      *
      * @param tagName
      *            name of the tag.
-     * @return a TagMediaFeed object.
+     * @return a MediaFeed object.
      * @throws InstagramException
      *             if any error occurs.
      */
-    TagMediaFeed getRecentMediaTagsByRegularIds(String tagName, String minId,
+    MediaFeed getRecentMediaTagsByRegularIds(String tagName, String minId,
             String maxId) throws InstagramException;
 
     /**

@@ -10,10 +10,9 @@ import org.jinstagram.auth.model.Token;
 import org.jinstagram.entity.common.Location;
 import org.jinstagram.entity.common.Meta;
 import org.jinstagram.entity.locations.LocationSearchFeed;
-import org.jinstagram.entity.tags.TagMediaFeed;
 import org.jinstagram.entity.users.basicinfo.UserInfo;
 import org.jinstagram.entity.users.basicinfo.UserInfoData;
-import org.jinstagram.entity.users.feed.MediaFeed;
+import org.jinstagram.entity.media.MediaFeed;
 import org.jinstagram.entity.users.feed.MediaFeedData;
 import org.jinstagram.entity.users.feed.UserFeed;
 import org.jinstagram.entity.users.feed.UserFeedData;
@@ -197,14 +196,14 @@ public class InstagramTest {
     @Test
     public void getMediaByTags() throws Exception {
         String tagName = "london";
-        TagMediaFeed recentMediaTags = instagram.getRecentMediaTags(tagName);
+        MediaFeed recentMediaTags = instagram.getRecentMediaTags(tagName);
         printMediaFeedList(recentMediaTags.getData());
     }
 
     @Test
     public void getMediaByTagsSpecialCharacters() throws Exception {
         String tagName = "❤london";
-        TagMediaFeed recentMediaTags = instagram.getRecentMediaTags(tagName);
+        MediaFeed recentMediaTags = instagram.getRecentMediaTags(tagName);
         printMediaFeedList(recentMediaTags.getData());
     }
 
