@@ -1,8 +1,8 @@
 package org.jinstagram.auth.exceptions;
 
 import org.jinstagram.auth.model.OAuthRequest;
-import org.jinstagram.http.Verbs;
 import org.junit.Test;
+import org.springframework.http.HttpMethod;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -19,7 +19,7 @@ public class OAuthParametersMissingExceptionTest {
     @Test
     public void testOAuthParametersMissingException_1()
             throws Exception {
-        OAuthRequest request = new OAuthRequest(Verbs.DELETE, "");
+        OAuthRequest request = new OAuthRequest(HttpMethod.DELETE, "");
 
         OAuthParametersMissingException result = new OAuthParametersMissingException(request);
 

@@ -1,5 +1,8 @@
 package org.jinstagram.http;
 
+import org.jinstagram.auth.exceptions.OAuthException;
+import org.springframework.http.HttpMethod;
+
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
@@ -10,8 +13,6 @@ import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-
-import org.jinstagram.auth.exceptions.OAuthException;
 
 /**
  * Represents an HTTP Request object
@@ -35,7 +36,7 @@ public class Request {
 
 	private String url;
 
-	private Verbs verb;
+	private HttpMethod verb;
 
 	private int connectTimeout;
 
@@ -49,7 +50,7 @@ public class Request {
 	 * @param verb Http Verb (GET, POST, etc)
 	 * @param url url with optional querystring parameters.
 	 */
-	public Request(Verbs verb, String url) {
+	public Request(HttpMethod verb, String url) {
 		this.verb = verb;
 		this.url = url;
 		this.querystringParams = new HashMap<String, String>();
@@ -88,7 +89,7 @@ public class Request {
 		connection.setRequestMethod(this.verb.name());
 		addHeaders(connection);
 
-		if (verb.equals(Verbs.PUT) || verb.equals(Verbs.POST)) {
+		if (verb.equals(HttpMethod.PUT) || verb.equals(HttpMethod.POST)) {
 			addBody(connection, getByteBodyContents());
 		}
 
@@ -228,7 +229,7 @@ public class Request {
 	 *
 	 * @return the verb
 	 */
-	public Verbs getVerb() {
+	public HttpMethod getVerb() {
 		return verb;
 	}
 

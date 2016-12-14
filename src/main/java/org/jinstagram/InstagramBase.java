@@ -23,7 +23,6 @@ import org.jinstagram.exceptions.InstagramException;
 import org.jinstagram.http.Request;
 import org.jinstagram.http.Response;
 import org.jinstagram.http.URLUtils;
-import org.jinstagram.http.Verbs;
 import org.jinstagram.model.Methods;
 import org.jinstagram.model.QueryParam;
 import org.jinstagram.model.Relationship;
@@ -32,6 +31,7 @@ import org.jinstagram.utils.PaginationHelper;
 import org.jinstagram.utils.Preconditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpMethod;
 
 import java.io.IOException;
 import java.net.Proxy;
@@ -83,7 +83,7 @@ public abstract class InstagramBase implements InstagramClient {
 
         String apiMethod = format(Methods.USERS_WITH_ID, userId);
 
-        return createInstagramObject(Verbs.GET, UserInfo.class, apiMethod, null);
+        return createInstagramObject(HttpMethod.GET, UserInfo.class, apiMethod, null);
     }
 
     /* (non-Javadoc)
@@ -95,7 +95,7 @@ public abstract class InstagramBase implements InstagramClient {
 
         logger.info("Getting current user info...");
 
-        return createInstagramObject(Verbs.GET, UserInfo.class, Methods.USERS_SELF, null);
+        return createInstagramObject(HttpMethod.GET, UserInfo.class, Methods.USERS_SELF, null);
     }
 
     /* (non-Javadoc)
@@ -106,7 +106,7 @@ public abstract class InstagramBase implements InstagramClient {
     public MediaFeed getUserFeeds() throws InstagramException {
         LogHelper.logEntrance(logger, "getUserFeeds", null);
 
-        return createInstagramObject(Verbs.GET, MediaFeed.class, Methods.USERS_SELF_FEED, null);
+        return createInstagramObject(HttpMethod.GET, MediaFeed.class, Methods.USERS_SELF_FEED, null);
     }
 
     /* (non-Javadoc)
@@ -117,7 +117,7 @@ public abstract class InstagramBase implements InstagramClient {
         LogHelper.logEntrance(logger, "getUserRecentMedia", null);
         logger.info("Getting current user recent media...");
 
-        return createInstagramObject(Verbs.GET, MediaFeed.class, Methods.USERS_SELF_RECENT_MEDIA, null);
+        return createInstagramObject(HttpMethod.GET, MediaFeed.class, Methods.USERS_SELF_RECENT_MEDIA, null);
     }
 
     /* (non-Javadoc)
@@ -143,7 +143,7 @@ public abstract class InstagramBase implements InstagramClient {
             params.put(QueryParam.COUNT, String.valueOf(count));
         }
 
-        return createInstagramObject(Verbs.GET, MediaFeed.class, Methods.USERS_SELF_RECENT_MEDIA, params);
+        return createInstagramObject(HttpMethod.GET, MediaFeed.class, Methods.USERS_SELF_RECENT_MEDIA, params);
     }
 
     /* (non-Javadoc)
@@ -169,7 +169,7 @@ public abstract class InstagramBase implements InstagramClient {
             params.put(QueryParam.COUNT, String.valueOf(count));
         }
 
-        return createInstagramObject(Verbs.GET, MediaFeed.class, Methods.USERS_SELF_FEED, params);
+        return createInstagramObject(HttpMethod.GET, MediaFeed.class, Methods.USERS_SELF_FEED, params);
 
     }
 
@@ -182,7 +182,7 @@ public abstract class InstagramBase implements InstagramClient {
 
         String methodName = format(Methods.USERS_RECENT_MEDIA, userId);
 
-        return createInstagramObject(Verbs.GET, MediaFeed.class, methodName, null);
+        return createInstagramObject(HttpMethod.GET, MediaFeed.class, methodName, null);
     }
 
     /* (non-Javadoc)
@@ -216,7 +216,7 @@ public abstract class InstagramBase implements InstagramClient {
 
         String methodName = format(Methods.USERS_RECENT_MEDIA, userId);
 
-        return createInstagramObject(Verbs.GET, MediaFeed.class, methodName, params);
+        return createInstagramObject(HttpMethod.GET, MediaFeed.class, methodName, params);
 
     }
 
@@ -226,7 +226,7 @@ public abstract class InstagramBase implements InstagramClient {
     @Override
     public MediaFeed getRecentMediaNextPage(Pagination pagination) throws InstagramException {
         PaginationHelper.Page page = PaginationHelper.parseNextUrl(pagination, config.getApiURL());
-        return createInstagramObject(Verbs.GET, MediaFeed.class,
+        return createInstagramObject(HttpMethod.GET, MediaFeed.class,
                 page.getMethodName(), page.getRawMethodName(), page.getQueryStringParams());
     }
 
@@ -236,7 +236,7 @@ public abstract class InstagramBase implements InstagramClient {
     @Override
     public UserFeed getUserFeedInfoNextPage(Pagination pagination) throws InstagramException {
         PaginationHelper.Page page = PaginationHelper.parseNextUrl(pagination, config.getApiURL());
-        return createInstagramObject(Verbs.GET, UserFeed.class,
+        return createInstagramObject(HttpMethod.GET, UserFeed.class,
                 page.getMethodName(), page.getQueryStringParams());
     }
 
@@ -246,7 +246,7 @@ public abstract class InstagramBase implements InstagramClient {
     @Override
     public TagMediaFeed getTagMediaInfoNextPage(Pagination pagination) throws InstagramException {
         PaginationHelper.Page page = PaginationHelper.parseNextUrl(pagination,config.getApiURL());
-        return createInstagramObject(Verbs.GET, TagMediaFeed.class,
+        return createInstagramObject(HttpMethod.GET, TagMediaFeed.class,
                 page.getMethodName(), page.getRawMethodName(), page.getQueryStringParams());
     }
 
@@ -256,7 +256,7 @@ public abstract class InstagramBase implements InstagramClient {
     @Override
     public MediaFeed getUserLikedMediaFeed() throws InstagramException {
 
-        return createInstagramObject(Verbs.GET, MediaFeed.class, Methods.USERS_SELF_LIKED_MEDIA, null);
+        return createInstagramObject(HttpMethod.GET, MediaFeed.class, Methods.USERS_SELF_LIKED_MEDIA, null);
     }
 
     /* (non-Javadoc)
@@ -274,7 +274,7 @@ public abstract class InstagramBase implements InstagramClient {
             params.put(QueryParam.COUNT, String.valueOf(count));
         }
 
-        return createInstagramObject(Verbs.GET, MediaFeed.class, Methods.USERS_SELF_LIKED_MEDIA, params);
+        return createInstagramObject(HttpMethod.GET, MediaFeed.class, Methods.USERS_SELF_LIKED_MEDIA, params);
     }
 
     /* (non-Javadoc)
@@ -287,7 +287,7 @@ public abstract class InstagramBase implements InstagramClient {
         Map<String, String> params = new HashMap<String, String>();
         params.put(QueryParam.SEARCH_QUERY, query);
 
-        return createInstagramObject(Verbs.GET, UserFeed.class, Methods.USERS_SEARCH, params);
+        return createInstagramObject(HttpMethod.GET, UserFeed.class, Methods.USERS_SEARCH, params);
     }
 
     /* (non-Javadoc)
@@ -304,7 +304,7 @@ public abstract class InstagramBase implements InstagramClient {
             params.put(QueryParam.COUNT, String.valueOf(count));
         }
 
-        return createInstagramObject(Verbs.GET, UserFeed.class, Methods.USERS_SEARCH, params);
+        return createInstagramObject(HttpMethod.GET, UserFeed.class, Methods.USERS_SEARCH, params);
 
     }
 
@@ -328,7 +328,7 @@ public abstract class InstagramBase implements InstagramClient {
             params.put("cursor", cursor);
 
         String apiMethod = format(Methods.USERS_ID_FOLLOWS, userId);
-        return createInstagramObject(Verbs.GET, UserFeed.class, apiMethod, params);
+        return createInstagramObject(HttpMethod.GET, UserFeed.class, apiMethod, params);
     }
 
     /* (non-Javadoc)
@@ -359,7 +359,7 @@ public abstract class InstagramBase implements InstagramClient {
             params.put("cursor", cursor);
 
         String apiMethod = format(Methods.USERS_ID_FOLLOWED_BY, userId);
-        return createInstagramObject(Verbs.GET, UserFeed.class, apiMethod, params);
+        return createInstagramObject(HttpMethod.GET, UserFeed.class, apiMethod, params);
     }
 
     /* (non-Javadoc)
@@ -375,7 +375,7 @@ public abstract class InstagramBase implements InstagramClient {
      */
     @Override
     public UserFeed getUserRequestedBy() throws InstagramException {
-        return createInstagramObject(Verbs.GET, UserFeed.class, Methods.USERS_SELF_REQUESTED_BY, null);
+        return createInstagramObject(HttpMethod.GET, UserFeed.class, Methods.USERS_SELF_REQUESTED_BY, null);
     }
 
     /* (non-Javadoc)
@@ -386,7 +386,7 @@ public abstract class InstagramBase implements InstagramClient {
         Preconditions.checkEmptyString(userId, USER_ID_CANNOT_BE_NULL_OR_EMPTY);
 
         String apiMethod = format(Methods.USERS_ID_RELATIONSHIP, userId);
-        return createInstagramObject(Verbs.GET, RelationshipFeed.class, apiMethod, null);
+        return createInstagramObject(HttpMethod.GET, RelationshipFeed.class, apiMethod, null);
     }
 
     /* (non-Javadoc)
@@ -402,7 +402,7 @@ public abstract class InstagramBase implements InstagramClient {
 
         params.put(QueryParam.ACTION, relationship.toString());
 
-        return createInstagramObject(Verbs.POST, RelationshipFeed.class, apiMethod, params);
+        return createInstagramObject(HttpMethod.POST, RelationshipFeed.class, apiMethod, params);
 
     }
 
@@ -415,7 +415,7 @@ public abstract class InstagramBase implements InstagramClient {
 
         String apiMethod = format(Methods.MEDIA_BY_ID, mediaId);
 
-        return createInstagramObject(Verbs.GET, MediaInfoFeed.class, apiMethod, null);
+        return createInstagramObject(HttpMethod.GET, MediaInfoFeed.class, apiMethod, null);
 
     }
 
@@ -428,7 +428,7 @@ public abstract class InstagramBase implements InstagramClient {
 
         String apiMethod = format(Methods.MEDIA_BY_SHORTCODE, shortcode);
 
-        return createInstagramObject(Verbs.GET, MediaInfoFeed.class, apiMethod, null);
+        return createInstagramObject(HttpMethod.GET, MediaInfoFeed.class, apiMethod, null);
 
     }
 
@@ -442,7 +442,7 @@ public abstract class InstagramBase implements InstagramClient {
         params.put(QueryParam.LATITUDE, Double.toString(latitude));
         params.put(QueryParam.LONGITUDE, Double.toString(longitude));
 
-        return createInstagramObject(Verbs.GET, MediaFeed.class, Methods.MEDIA_SEARCH, params);
+        return createInstagramObject(HttpMethod.GET, MediaFeed.class, Methods.MEDIA_SEARCH, params);
     }
     
     /* (non-Javadoc)
@@ -458,7 +458,7 @@ public abstract class InstagramBase implements InstagramClient {
 
         params.put(QueryParam.DISTANCE, String.valueOf(distance));
 
-        return createInstagramObject(Verbs.GET, MediaFeed.class, Methods.MEDIA_SEARCH, params);
+        return createInstagramObject(HttpMethod.GET, MediaFeed.class, Methods.MEDIA_SEARCH, params);
     }
 
     /* (non-Javadoc)
@@ -482,7 +482,7 @@ public abstract class InstagramBase implements InstagramClient {
 
         params.put(QueryParam.DISTANCE, String.valueOf(distance));
 
-        return createInstagramObject(Verbs.GET, MediaFeed.class, Methods.MEDIA_SEARCH, params);
+        return createInstagramObject(HttpMethod.GET, MediaFeed.class, Methods.MEDIA_SEARCH, params);
     }
 
     /* (non-Javadoc)
@@ -491,7 +491,7 @@ public abstract class InstagramBase implements InstagramClient {
     @Override
     @Deprecated
     public MediaFeed getPopularMedia() throws InstagramException {
-        return createInstagramObject(Verbs.GET, MediaFeed.class, Methods.MEDIA_POPULAR, null);
+        return createInstagramObject(HttpMethod.GET, MediaFeed.class, Methods.MEDIA_POPULAR, null);
     }
 
     /* (non-Javadoc)
@@ -501,7 +501,7 @@ public abstract class InstagramBase implements InstagramClient {
     public MediaCommentsFeed getMediaComments(String mediaId) throws InstagramException {
         String apiMethod = format(Methods.MEDIA_COMMENTS, mediaId);
 
-        return createInstagramObject(Verbs.GET, MediaCommentsFeed.class, apiMethod, null);
+        return createInstagramObject(HttpMethod.GET, MediaCommentsFeed.class, apiMethod, null);
     }
 
     /* (non-Javadoc)
@@ -514,7 +514,7 @@ public abstract class InstagramBase implements InstagramClient {
         params.put(QueryParam.TEXT, text);
 
         String apiMethod = format(Methods.MEDIA_COMMENTS, mediaId);
-        return createInstagramObject(Verbs.POST, MediaCommentResponse.class, apiMethod, params);
+        return createInstagramObject(HttpMethod.POST, MediaCommentResponse.class, apiMethod, params);
     }
 
     /* (non-Javadoc)
@@ -523,7 +523,7 @@ public abstract class InstagramBase implements InstagramClient {
     @Override
     public MediaCommentResponse deleteMediaCommentById(String mediaId, String commentId) throws InstagramException {
         String apiMethod = format(Methods.DELETE_MEDIA_COMMENTS, mediaId, commentId);
-        return createInstagramObject(Verbs.DELETE, MediaCommentResponse.class, apiMethod, null);
+        return createInstagramObject(HttpMethod.DELETE, MediaCommentResponse.class, apiMethod, null);
     }
 
     /* (non-Javadoc)
@@ -533,7 +533,7 @@ public abstract class InstagramBase implements InstagramClient {
     public LikesFeed getUserLikes(String mediaId) throws InstagramException {
         String apiMethod = format(Methods.LIKES_BY_MEDIA_ID, mediaId);
 
-        return createInstagramObject(Verbs.GET, LikesFeed.class, apiMethod, null);
+        return createInstagramObject(HttpMethod.GET, LikesFeed.class, apiMethod, null);
     }
 
     /* (non-Javadoc)
@@ -542,7 +542,7 @@ public abstract class InstagramBase implements InstagramClient {
     @Override
     public LikesFeed setUserLike(String mediaId) throws InstagramException {
         String apiMethod = format(Methods.LIKES_BY_MEDIA_ID, mediaId);
-        return createInstagramObject(Verbs.POST, LikesFeed.class, apiMethod, null);
+        return createInstagramObject(HttpMethod.POST, LikesFeed.class, apiMethod, null);
     }
 
     /* (non-Javadoc)
@@ -552,7 +552,7 @@ public abstract class InstagramBase implements InstagramClient {
     public LikesFeed deleteUserLike(String mediaId) throws InstagramException {
         String apiMethod = format(Methods.LIKES_BY_MEDIA_ID, mediaId);
 
-        return createInstagramObject(Verbs.DELETE, LikesFeed.class, apiMethod, null);
+        return createInstagramObject(HttpMethod.DELETE, LikesFeed.class, apiMethod, null);
     }
 
     /* (non-Javadoc)
@@ -562,7 +562,7 @@ public abstract class InstagramBase implements InstagramClient {
     public TagInfoFeed getTagInfo(String tagName) throws InstagramException {
         String apiMethod = format(Methods.TAGS_BY_NAME, URLUtils.encodeURIComponent(tagName));
         String rawApiMethod = format(Methods.TAGS_BY_NAME, tagName);
-        return createInstagramObject(Verbs.GET, TagInfoFeed.class, apiMethod, rawApiMethod, null);
+        return createInstagramObject(HttpMethod.GET, TagInfoFeed.class, apiMethod, rawApiMethod, null);
     }
 
     /* (non-Javadoc)
@@ -634,7 +634,7 @@ public abstract class InstagramBase implements InstagramClient {
         String apiMethod = format(Methods.TAGS_RECENT_MEDIA, URLUtils.encodeURIComponent(tagName));
         String rawApiMethod = format(Methods.TAGS_RECENT_MEDIA, tagName);
 
-        return createInstagramObject(Verbs.GET, TagMediaFeed.class, apiMethod, rawApiMethod, params);
+        return createInstagramObject(HttpMethod.GET, TagMediaFeed.class, apiMethod, rawApiMethod, params);
     }
 
 	/* (non-Javadoc)
@@ -658,8 +658,8 @@ public abstract class InstagramBase implements InstagramClient {
 		String apiMethod = format(Methods.TAGS_RECENT_MEDIA, URLUtils.encodeURIComponent(tagName));
 		String rawApiMethod = format(Methods.TAGS_RECENT_MEDIA, tagName);
 
-		return createInstagramObject(Verbs.GET, MediaFeed.class, apiMethod, rawApiMethod, params);
-	}
+        return createInstagramObject(HttpMethod.GET, MediaFeed.class, apiMethod, rawApiMethod, params);
+    }
 
     /* (non-Javadoc)
      * @see org.jinstagram.InstagramClient#getRecentMediaTagsByRegularIds(java.lang.String, java.lang.String, java.lang.String)
@@ -678,7 +678,7 @@ public abstract class InstagramBase implements InstagramClient {
 
         String apiMethod = format(Methods.TAGS_RECENT_MEDIA, URLUtils.encodeURIComponent(tagName));
         String rawApiMethod = format(Methods.TAGS_RECENT_MEDIA, tagName);
-        return createInstagramObject(Verbs.GET, TagMediaFeed.class, apiMethod, rawApiMethod, params);
+        return createInstagramObject(HttpMethod.GET, TagMediaFeed.class, apiMethod, rawApiMethod, params);
     }
 
 	/* (non-Javadoc)
@@ -697,8 +697,8 @@ public abstract class InstagramBase implements InstagramClient {
 
 		String apiMethod = format(Methods.TAGS_RECENT_MEDIA, URLUtils.encodeURIComponent(tagName));
 		String rawApiMethod = format(Methods.TAGS_RECENT_MEDIA, tagName);
-		return createInstagramObject(Verbs.GET, MediaFeed.class, apiMethod, rawApiMethod, params);
-	}
+        return createInstagramObject(HttpMethod.GET, MediaFeed.class, apiMethod, rawApiMethod, params);
+    }
 
     /* (non-Javadoc)
      * @see org.jinstagram.InstagramClient#searchTags(java.lang.String)
@@ -709,7 +709,7 @@ public abstract class InstagramBase implements InstagramClient {
 
         params.put(QueryParam.SEARCH_QUERY, tagName);
 
-        return createInstagramObject(Verbs.GET, TagSearchFeed.class, Methods.TAGS_SEARCH, params);
+        return createInstagramObject(HttpMethod.GET, TagSearchFeed.class, Methods.TAGS_SEARCH, params);
     }
 
     /* (non-Javadoc)
@@ -719,7 +719,7 @@ public abstract class InstagramBase implements InstagramClient {
     public LocationInfo getLocationInfo(String locationId) throws InstagramException {
         String apiMethod = format(Methods.LOCATIONS_BY_ID, locationId);
 
-        return createInstagramObject(Verbs.GET, LocationInfo.class, apiMethod, null);
+        return createInstagramObject(HttpMethod.GET, LocationInfo.class, apiMethod, null);
     }
 
     /* (non-Javadoc)
@@ -729,7 +729,7 @@ public abstract class InstagramBase implements InstagramClient {
     public MediaFeed getRecentMediaByLocation(String locationId) throws InstagramException {
         String apiMethod = format(Methods.LOCATIONS_RECENT_MEDIA_BY_ID, locationId);
 
-        return createInstagramObject(Verbs.GET, MediaFeed.class, apiMethod, null);
+        return createInstagramObject(HttpMethod.GET, MediaFeed.class, apiMethod, null);
     }
 
     /* (non-Javadoc)
@@ -765,7 +765,7 @@ public abstract class InstagramBase implements InstagramClient {
 
         String apiMethod = format(Methods.LOCATIONS_RECENT_MEDIA_BY_ID, locationId);
 
-        return createInstagramObject(Verbs.GET, MediaFeed.class, apiMethod, params);
+        return createInstagramObject(HttpMethod.GET, MediaFeed.class, apiMethod, params);
     }
 
     /* (non-Javadoc)
@@ -778,7 +778,7 @@ public abstract class InstagramBase implements InstagramClient {
         params.put(QueryParam.LATITUDE, Double.toString(latitude));
         params.put(QueryParam.LONGITUDE, Double.toString(longitude));
 
-        return createInstagramObject(Verbs.GET, LocationSearchFeed.class, Methods.LOCATIONS_SEARCH, params);
+        return createInstagramObject(HttpMethod.GET, LocationSearchFeed.class, Methods.LOCATIONS_SEARCH, params);
     }
 
     /* (non-Javadoc)
@@ -793,7 +793,7 @@ public abstract class InstagramBase implements InstagramClient {
         params.put(QueryParam.LONGITUDE, Double.toString(longitude));
         params.put(QueryParam.DISTANCE, Integer.toString(distance));
 
-        return createInstagramObject(Verbs.GET, LocationSearchFeed.class, Methods.LOCATIONS_SEARCH, params);
+        return createInstagramObject(HttpMethod.GET, LocationSearchFeed.class, Methods.LOCATIONS_SEARCH, params);
     }
 
     /* (non-Javadoc)
@@ -805,7 +805,7 @@ public abstract class InstagramBase implements InstagramClient {
 
         params.put(QueryParam.FOURSQUARE_V2_ID, foursquareId);
 
-        return createInstagramObject(Verbs.GET, LocationSearchFeed.class, Methods.LOCATIONS_SEARCH, params);
+        return createInstagramObject(HttpMethod.GET, LocationSearchFeed.class, Methods.LOCATIONS_SEARCH, params);
     }
 
     /* (non-Javadoc)
@@ -817,7 +817,7 @@ public abstract class InstagramBase implements InstagramClient {
 
         params.put(QueryParam.FACEBOOK_PLACES_ID, facebookPlacesId);
 
-        return createInstagramObject(Verbs.GET, LocationSearchFeed.class, Methods.LOCATIONS_SEARCH, params);
+        return createInstagramObject(HttpMethod.GET, LocationSearchFeed.class, Methods.LOCATIONS_SEARCH, params);
     }
 
     /**
@@ -835,8 +835,8 @@ public abstract class InstagramBase implements InstagramClient {
      * @return
      * @throws InstagramException
      */
-    protected <T extends InstagramObject> T createInstagramObject(Verbs verbs, Class<T> clazz, String methodName,
-            String rawMethodName, Map<String, String> params) throws InstagramException {
+    protected <T extends InstagramObject> T createInstagramObject(HttpMethod verbs, Class<T> clazz, String methodName,
+                                                                  String rawMethodName, Map<String, String> params) throws InstagramException {
         Response response;
         String jsonResponseBody;
         try {
@@ -924,8 +924,8 @@ public abstract class InstagramBase implements InstagramClient {
      * @return
      * @throws InstagramException
      */
-    protected <T extends InstagramObject> T createInstagramObject(Verbs verbs, Class<T> clazz, String methodName,
-            Map<String, String> params) throws InstagramException {
+    protected <T extends InstagramObject> T createInstagramObject(HttpMethod verbs, Class<T> clazz, String methodName,
+                                                                  Map<String, String> params) throws InstagramException {
         return createInstagramObject(verbs, clazz, methodName, methodName, params);
     }
 
@@ -993,14 +993,14 @@ public abstract class InstagramBase implements InstagramClient {
      *            parameters which would be sent with the request.
      * @return Response object.
      */
-    protected Response getApiResponse(Verbs verb, String methodName, String rawMethodName, Map<String, String> params) throws IOException {
+    protected Response getApiResponse(HttpMethod verb, String methodName, String rawMethodName, Map<String, String> params) throws IOException {
         Request request=request(verb, methodName, rawMethodName, params);
         logger.debug("Sending request to Instagram...");
         Response response=request.send();
         return response;
     }
-    
-    protected Request request(Verbs verb, String methodName, String rawMethodName, Map<String, String> params) throws InstagramException {
+
+    protected Request request(HttpMethod verb, String methodName, String rawMethodName, Map<String, String> params) throws InstagramException {
         String apiResourceUrl = config.getApiURL() + methodName;
         Request request = new Request(verb, apiResourceUrl);
 
@@ -1018,7 +1018,7 @@ public abstract class InstagramBase implements InstagramClient {
             params.remove(QueryParam.SIGNATURE); // needs to be recalculated last for every request
             
             for (Map.Entry<String, String> entry : params.entrySet()) {
-                if (verb == Verbs.GET) {
+                if (verb == HttpMethod.GET) {
                     request.addQuerystringParameter(entry.getKey(), entry.getValue());
                 } else {
                     request.addBodyParameter(entry.getKey(), entry.getValue());

@@ -1,7 +1,12 @@
 package org.jinstagram.http;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.http.HttpMethod;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,14 +18,9 @@ import java.net.URL;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.runners.MockitoJUnitRunner;
-
-import static org.mockito.Mockito.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.when;
 
 /**
  * The class <code>RequestTest</code> contains tests for the class
@@ -69,10 +69,9 @@ public class RequestTest {
 	 */
 	@Test
 	public void testRequest_1() throws Exception {
-		Verbs verb = Verbs.DELETE;
 		String url = "";
 
-		Request result = new Request(verb, url);
+		Request result = new Request(HttpMethod.DELETE, url);
 
 		// add additional test code here
 		assertNotNull(result);
@@ -92,7 +91,7 @@ public class RequestTest {
 	 */
 	@Test
 	public void testAddBody_1() throws Exception {
-		Request fixture = new Request(Verbs.DELETE, "");
+		Request fixture = new Request(HttpMethod.DELETE, "");
 		fixture.setConnectionKeepAlive(true);
 		fixture.setCharset("UTF-8");
 		fixture.addPayload("Dummy payload");
@@ -125,7 +124,7 @@ public class RequestTest {
 	 */
 	@Test
 	public void testAddBody_2() throws Exception {
-		Request fixture = new Request(Verbs.DELETE, "");
+		Request fixture = new Request(HttpMethod.DELETE, "");
 		fixture.setConnectionKeepAlive(true);
 		fixture.setCharset("UTF-8");
 		fixture.addPayload("Dummy payload");
@@ -153,7 +152,7 @@ public class RequestTest {
 	 */
 	@Test
 	public void testAddBody_3() throws Exception {
-		Request fixture = new Request(Verbs.DELETE, "");
+		Request fixture = new Request(HttpMethod.DELETE, "");
 		fixture.setConnectionKeepAlive(true);
 		fixture.setCharset("UTF-8");
 		fixture.addPayload("Dummy payload");
@@ -180,7 +179,7 @@ public class RequestTest {
 	 */
 	@Test
 	public void testAddBodyParameter_1() throws Exception {
-		Request fixture = new Request(Verbs.DELETE, "");
+		Request fixture = new Request(HttpMethod.DELETE, "");
 		fixture.setConnectionKeepAlive(true);
 		fixture.setCharset("UTF-8");
 		fixture.addPayload("Dummy payload");
@@ -208,7 +207,7 @@ public class RequestTest {
 	 */
 	@Test
 	public void testAddHeader_1() throws Exception {
-		Request fixture = new Request(Verbs.DELETE, "");
+		Request fixture = new Request(HttpMethod.DELETE, "");
 		fixture.setConnectionKeepAlive(true);
 		fixture.setCharset("UTF-8");
 		fixture.addPayload("Dummy payload");
@@ -236,7 +235,7 @@ public class RequestTest {
 	 */
 	@Test
 	public void testAddHeaders_1() throws Exception {
-		Request fixture = new Request(Verbs.DELETE, "");
+		Request fixture = new Request(HttpMethod.DELETE, "");
 		fixture.setConnectionKeepAlive(true);
 		fixture.setCharset("UTF-8");
 		fixture.addPayload("Dummy payload");
@@ -262,7 +261,7 @@ public class RequestTest {
 	 */
 	@Test
 	public void testAddHeaders_2() throws Exception {
-		Request fixture = new Request(Verbs.DELETE, "");
+		Request fixture = new Request(HttpMethod.DELETE, "");
 		fixture.setConnectionKeepAlive(true);
 		fixture.setCharset("UTF-8");
 		fixture.addPayload("Dummy payload");
@@ -288,7 +287,7 @@ public class RequestTest {
 	 */
 	@Test
 	public void testAddPayload_1() throws Exception {
-		Request fixture = new Request(Verbs.DELETE, "");
+		Request fixture = new Request(HttpMethod.DELETE, "");
 		fixture.setConnectionKeepAlive(true);
 		fixture.setCharset("UTF-8");
 		fixture.addPayload("Dummy payload");
@@ -315,7 +314,7 @@ public class RequestTest {
 	 */
 	@Test
 	public void testAddQuerystringParameter_1() throws Exception {
-		Request fixture = new Request(Verbs.DELETE, "");
+		Request fixture = new Request(HttpMethod.DELETE, "");
 		fixture.setConnectionKeepAlive(true);
 		fixture.setCharset("UTF-8");
 		fixture.addPayload("Dummy payload");
@@ -343,7 +342,7 @@ public class RequestTest {
 	 */
 	@Test
 	public void testDoSend_1() throws Exception {
-		Request fixture = new Request(Verbs.DELETE, "");
+		Request fixture = new Request(HttpMethod.DELETE, "");
 		fixture.setConnectionKeepAlive(true);
 		fixture.setCharset("UTF-8");
 		fixture.addPayload("Dummy payload");
@@ -370,7 +369,7 @@ public class RequestTest {
 	 */
 	@Test
 	public void testDoSend_2() throws Exception {
-		Request fixture = new Request(Verbs.DELETE, "");
+		Request fixture = new Request(HttpMethod.DELETE, "");
 		fixture.setConnectionKeepAlive(true);
 		fixture.setCharset("UTF-8");
 		fixture.addPayload("Dummy payload");
@@ -397,7 +396,7 @@ public class RequestTest {
 	 */
 	@Test
 	public void testDoSend_3() throws Exception {
-		Request fixture = new Request(Verbs.DELETE, "");
+		Request fixture = new Request(HttpMethod.DELETE, "");
 		fixture.setConnectionKeepAlive(true);
 		fixture.setCharset("UTF-8");
 		fixture.addPayload("Dummy payload");
@@ -424,7 +423,7 @@ public class RequestTest {
 	 */
 	@Test
 	public void testDoSend_4() throws Exception {
-		Request fixture = new Request(Verbs.DELETE, "");
+		Request fixture = new Request(HttpMethod.DELETE, "");
 		fixture.setConnectionKeepAlive(true);
 		fixture.setCharset("UTF-8");
 		fixture.addPayload("Dummy payload");
@@ -451,7 +450,7 @@ public class RequestTest {
 	 */
 	@Test
 	public void testGetBodyContents_1() throws Exception {
-		Request fixture = new Request(Verbs.DELETE, "");
+		Request fixture = new Request(HttpMethod.DELETE, "");
 		fixture.setConnectionKeepAlive(true);
 		fixture.setCharset("UTF-8");
 		fixture.addPayload("Dummy payload");
@@ -478,7 +477,7 @@ public class RequestTest {
 	 */
 	@Test
 	public void testGetBodyContents_2() throws Exception {
-		Request fixture = new Request(Verbs.DELETE, "");
+		Request fixture = new Request(HttpMethod.DELETE, "");
 		fixture.setConnectionKeepAlive(true);
 		fixture.setCharset("UTF-8");
 		fixture.addPayload("Dummy payload");
@@ -505,7 +504,7 @@ public class RequestTest {
 	 */
 	@Test
 	public void testGetBodyParams_1() throws Exception {
-		Request fixture = new Request(Verbs.DELETE, "");
+		Request fixture = new Request(HttpMethod.DELETE, "");
 		fixture.setConnectionKeepAlive(true);
 		fixture.setCharset("UTF-8");
 		fixture.addPayload("Dummy payload");
@@ -532,7 +531,7 @@ public class RequestTest {
 	 */
 	@Test
 	public void testGetByteBodyContents_1() throws Exception {
-		Request fixture = new Request(Verbs.DELETE, "");
+		Request fixture = new Request(HttpMethod.DELETE, "");
 		fixture.setConnectionKeepAlive(true);
 		fixture.setCharset("UTF-8");
 		fixture.addPayload("Dummy payload");
@@ -553,7 +552,7 @@ public class RequestTest {
 	 */
 	@Test
 	public void testGetByteBodyContents_2() throws Exception {
-		Request fixture = new Request(Verbs.DELETE, "");
+		Request fixture = new Request(HttpMethod.DELETE, "");
 		fixture.setConnectionKeepAlive(true);
 		fixture.setCharset("UTF-8");
 		fixture.addPayload((String) null);
@@ -580,7 +579,7 @@ public class RequestTest {
 	 */
 	@Test
 	public void testGetCharset_1() throws Exception {
-		Request fixture = new Request(Verbs.DELETE, "");
+		Request fixture = new Request(HttpMethod.DELETE, "");
 		fixture.setConnectionKeepAlive(true);
 		fixture.setCharset("UTF-8");
 		fixture.addPayload("Dummy payload");
@@ -607,7 +606,7 @@ public class RequestTest {
 	 */
 	@Test
 	public void testGetCharset_2() throws Exception {
-		Request fixture = new Request(Verbs.DELETE, "");
+		Request fixture = new Request(HttpMethod.DELETE, "");
 		fixture.setConnectionKeepAlive(true);
 		fixture.setCharset((String) null);
 		fixture.addPayload("Dummy payload");
@@ -634,7 +633,7 @@ public class RequestTest {
 	 */
 	@Test
 	public void testGetHeaders_1() throws Exception {
-		Request fixture = new Request(Verbs.DELETE, "");
+		Request fixture = new Request(HttpMethod.DELETE, "");
 		fixture.setConnectionKeepAlive(true);
 		fixture.setCharset("UTF-8");
 		fixture.addPayload("Dummy payload");
@@ -661,7 +660,7 @@ public class RequestTest {
 	 */
 	@Test
 	public void testGetQueryStringParams_1() throws Exception {
-		Request fixture = new Request(Verbs.DELETE, "http://mock.url/?key1=value1&key2=value2");
+		Request fixture = new Request(HttpMethod.DELETE, "http://mock.url/?key1=value1&key2=value2");
 		fixture.setConnectionKeepAlive(true);
 		fixture.setCharset("UTF-8");
 		fixture.addPayload("Dummy payload");
@@ -689,7 +688,7 @@ public class RequestTest {
 	 */
 	@Test
 	public void testGetQueryStringParams_2() throws Exception {
-		Request fixture = new Request(Verbs.DELETE, "http://mock.url/?key1=value1&key2=value2");
+		Request fixture = new Request(HttpMethod.DELETE, "http://mock.url/?key1=value1&key2=value2");
 		fixture.setConnectionKeepAlive(true);
 		fixture.setCharset("UTF-8");
 		fixture.addPayload("Dummy payload");
@@ -716,7 +715,7 @@ public class RequestTest {
 	 */
 	@Test
 	public void testGetSanitizedUrl_1() throws Exception {
-		Request fixture = new Request(Verbs.DELETE, "");
+		Request fixture = new Request(HttpMethod.DELETE, "");
 		fixture.setConnectionKeepAlive(true);
 		fixture.setCharset("UTF-8");
 		fixture.addPayload("Dummy payload");
@@ -743,7 +742,7 @@ public class RequestTest {
 	 */
 	@Test
 	public void testGetUrl_1() throws Exception {
-		Request fixture = new Request(Verbs.DELETE, "");
+		Request fixture = new Request(HttpMethod.DELETE, "");
 		fixture.setConnectionKeepAlive(true);
 		fixture.setCharset("UTF-8");
 		fixture.addPayload("Dummy payload");
@@ -763,7 +762,7 @@ public class RequestTest {
 	}
 
 	/**
-	 * Run the Verbs getVerb() method test.
+	 * Run the HttpMethod getVerb() method test.
 	 *
 	 * @throws Exception
 	 *
@@ -771,14 +770,14 @@ public class RequestTest {
 	 */
 	@Test
 	public void testGetVerb_1() throws Exception {
-		Request fixture = new Request(Verbs.DELETE, "");
+		Request fixture = new Request(HttpMethod.DELETE, "");
 		fixture.setConnectionKeepAlive(true);
 		fixture.setCharset("UTF-8");
 		fixture.addPayload("Dummy payload");
 		fixture.setConnection(mockHttpConnection);
 		fixture.setProxy(proxy);
 
-		Verbs result = fixture.getVerb();
+		HttpMethod result = fixture.getVerb();
 
 		// add additional test code here
 		// An unexpected exception was thrown in user code while executing this
@@ -798,7 +797,7 @@ public class RequestTest {
 	 */
 	@Test
 	public void testSend_1() throws Exception {
-		Request fixture = new Request(Verbs.DELETE, "");
+		Request fixture = new Request(HttpMethod.DELETE, "");
 		fixture.setConnectionKeepAlive(true);
 		fixture.setCharset("UTF-8");
 		fixture.addPayload("Dummy payload");
@@ -825,7 +824,7 @@ public class RequestTest {
 	 */
 	@Test
 	public void testSend_2() throws Exception {
-		Request fixture = new Request(Verbs.DELETE, "");
+		Request fixture = new Request(HttpMethod.DELETE, "");
 		fixture.setConnectionKeepAlive(true);
 		fixture.setCharset("UTF-8");
 		fixture.addPayload("Dummy payload");
@@ -852,7 +851,7 @@ public class RequestTest {
 	 */
 	@Test
 	public void testSend_3() throws Exception {
-		Request fixture = new Request(Verbs.DELETE, "");
+		Request fixture = new Request(HttpMethod.DELETE, "");
 		fixture.setConnectionKeepAlive(true);
 		fixture.setCharset("UTF-8");
 		fixture.addPayload("Dummy payload");
@@ -879,7 +878,7 @@ public class RequestTest {
 	 */
 	@Test
 	public void testSetCharset_1() throws Exception {
-		Request fixture = new Request(Verbs.DELETE, "");
+		Request fixture = new Request(HttpMethod.DELETE, "");
 		fixture.setConnectionKeepAlive(true);
 		fixture.setCharset("UTF-8");
 		fixture.addPayload("Dummy payload");
@@ -906,7 +905,7 @@ public class RequestTest {
 	 */
 	@Test
 	public void testSetConnectTimeout_1() throws Exception {
-		Request fixture = new Request(Verbs.DELETE, "");
+		Request fixture = new Request(HttpMethod.DELETE, "");
 		fixture.setConnectionKeepAlive(true);
 		fixture.setCharset("UTF-8");
 		fixture.addPayload("Dummy payload");
@@ -934,7 +933,7 @@ public class RequestTest {
 	 */
 	@Test
 	public void testSetConnection_1() throws Exception {
-		Request fixture = new Request(Verbs.DELETE, "");
+		Request fixture = new Request(HttpMethod.DELETE, "");
 		fixture.setConnectionKeepAlive(true);
 		fixture.setCharset("UTF-8");
 		fixture.addPayload("Dummy payload");
@@ -961,7 +960,7 @@ public class RequestTest {
 	 */
 	@Test
 	public void testSetConnectionKeepAlive_1() throws Exception {
-		Request fixture = new Request(Verbs.DELETE, "");
+		Request fixture = new Request(HttpMethod.DELETE, "");
 		fixture.setConnectionKeepAlive(true);
 		fixture.setCharset("UTF-8");
 		fixture.addPayload("Dummy payload");
@@ -988,7 +987,7 @@ public class RequestTest {
 	 */
 	@Test
 	public void testSetProxy_1() throws Exception {
-		Request fixture = new Request(Verbs.DELETE, "");
+		Request fixture = new Request(HttpMethod.DELETE, "");
 		fixture.setConnectionKeepAlive(true);
 		fixture.setCharset("UTF-8");
 		fixture.addPayload("Dummy payload");
@@ -1015,7 +1014,7 @@ public class RequestTest {
 	 */
 	@Test
 	public void testSetReadTimeout_1() throws Exception {
-		Request fixture = new Request(Verbs.DELETE, "");
+		Request fixture = new Request(HttpMethod.DELETE, "");
 		fixture.setConnectionKeepAlive(true);
 		fixture.setCharset("UTF-8");
 		fixture.addPayload("Dummy payload");
@@ -1043,7 +1042,7 @@ public class RequestTest {
 	 */
 	@Test
 	public void testToString_1() throws Exception {
-		Request fixture = new Request(Verbs.DELETE, "");
+		Request fixture = new Request(HttpMethod.DELETE, "");
 		fixture.setConnectionKeepAlive(true);
 		fixture.setCharset("UTF-8");
 		fixture.addPayload("Dummy payload");

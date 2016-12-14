@@ -1,18 +1,17 @@
 package org.jinstagram;
 
-import java.io.IOException;
-import java.util.Map;
-
+import com.google.gson.Gson;
 import org.jinstagram.auth.model.OAuthRequest;
 import org.jinstagram.entity.common.InstagramErrorResponse;
 import org.jinstagram.entity.oembed.OembedInformation;
 import org.jinstagram.exceptions.InstagramException;
 import org.jinstagram.http.Response;
-import org.jinstagram.http.Verbs;
 import org.jinstagram.model.Constants;
 import org.jinstagram.model.Methods;
+import org.springframework.http.HttpMethod;
 
-import com.google.gson.Gson;
+import java.io.IOException;
+import java.util.Map;
 
 /**
  * Instagram Oembed
@@ -29,7 +28,7 @@ public class InstagramOembed {
      */
     public OembedInformation getOembedInformation(String url) throws InstagramException {
         String apiMethod = String.format(Methods.OEMBED_INFORMATION, url);
-        return createInstagramObject(Verbs.GET, OembedInformation.class, apiMethod, null);
+        return createInstagramObject(HttpMethod.GET, OembedInformation.class, apiMethod, null);
     }
 
     /**
@@ -42,7 +41,7 @@ public class InstagramOembed {
      * @return
      * @throws InstagramException
      */
-    private static <T> T createInstagramObject(Verbs verbs, Class<T> clazz, String methodName, Map<String, String> params)
+    private static <T> T createInstagramObject(HttpMethod verbs, Class<T> clazz, String methodName, Map<String, String> params)
             throws InstagramException {
         Response response;
         try {
@@ -83,7 +82,7 @@ public class InstagramOembed {
      * @param params parameters which would be sent with the request.
      * @return Response object.
      */
-    private static Response getApiResponse(Verbs verb, String methodName, Map<String, String> params) throws IOException {
+    private static Response getApiResponse(HttpMethod verb, String methodName, Map<String, String> params) throws IOException {
         Response response;
         String apiResourceUrl = Constants.API_URL + methodName;
         OAuthRequest request = new OAuthRequest(verb, apiResourceUrl);
@@ -91,7 +90,7 @@ public class InstagramOembed {
         // Additional parameters in url
         if (params != null) {
             for (Map.Entry<String, String> entry : params.entrySet()) {
-                if (verb == Verbs.GET) {
+                if (verb == HttpMethod.GET) {
                     request.addQuerystringParameter(entry.getKey(), entry.getValue());
                 } else {
                     request.addBodyParameter(entry.getKey(), entry.getValue());

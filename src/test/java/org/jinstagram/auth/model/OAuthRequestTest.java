@@ -1,8 +1,8 @@
 package org.jinstagram.auth.model;
 
-import org.jinstagram.http.Verbs;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.http.HttpMethod;
 
 import static org.junit.Assert.assertEquals;
 
@@ -12,7 +12,7 @@ public class OAuthRequestTest {
 
     @Before
     public void setup() {
-        request = new OAuthRequest(Verbs.GET, "http://example.com");
+        request = new OAuthRequest(HttpMethod.GET, "http://example.com");
     }
 
     @Test

@@ -1,18 +1,18 @@
 package org.jinstagram;
 
-import java.util.Map;
-import java.util.concurrent.TimeUnit;
-
 import org.jinstagram.auth.model.OAuthConstants;
 import org.jinstagram.auth.model.OAuthRequest;
 import org.jinstagram.auth.model.Token;
 import org.jinstagram.exceptions.InstagramException;
 import org.jinstagram.http.Request;
-import org.jinstagram.http.Verbs;
 import org.jinstagram.model.QueryParam;
 import org.jinstagram.utils.EnforceSignedHeaderUtils;
 import org.jinstagram.utils.EnforceSignedRequestUtils;
 import org.jinstagram.utils.Preconditions;
+import org.springframework.http.HttpMethod;
+
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Instagram
@@ -115,7 +115,7 @@ public class Instagram extends InstagramBase {
     }
 
     @Override
-    protected OAuthRequest request(Verbs verb, String methodName, String rawMethodName, Map<String, String> params) throws InstagramException {
+    protected OAuthRequest request(HttpMethod verb, String methodName, String rawMethodName, Map<String, String> params) throws InstagramException {
         Request request=super.request(verb, methodName, rawMethodName, params);
         OAuthRequest result=new OAuthRequest(request.getVerb(), request.getUrl());
         result.setCharset(request.getCharset());
@@ -125,7 +125,7 @@ public class Instagram extends InstagramBase {
         result.setReadTimeout(request.getReadTimeoutInMillis(), TimeUnit.MILLISECONDS);
         
         // Additional parameters in url
-        if (verb == Verbs.GET) {
+        if (verb == HttpMethod.GET) {
             for(Map.Entry<String, String> entry : request.getQueryStringParams().entrySet())
                 result.addQuerystringParameter(entry.getKey(), entry.getValue());
         } else {
@@ -134,7 +134,7 @@ public class Instagram extends InstagramBase {
         }
     
         // Add the AccessToken to the Request Url
-        if ((verb == Verbs.GET) || (verb == Verbs.DELETE)) {
+        if ((verb == HttpMethod.GET) || (verb == HttpMethod.DELETE)) {
             if (accessToken == null) {
                 logger.debug(USING + OAuthConstants.CLIENT_ID + " : " + clientId);
                 result.addQuerystringParameter(OAuthConstants.CLIENT_ID, clientId);
@@ -155,7 +155,7 @@ public class Instagram extends InstagramBase {
         // check if we are enforcing a signed request and add the 'sig'
         // parameter.  Must use rawMethodName here (i.e. sign the non-URI-encoded version).
         if (config.isEnforceSignedRequest()) {
-            boolean useQueryParam = (verb == Verbs.GET) || (verb == Verbs.DELETE);
+            boolean useQueryParam = (verb == HttpMethod.GET) || (verb == HttpMethod.DELETE);
 
             Map<String,String> sigParams = useQueryParam ? result.getQueryStringParams() : result.getBodyParams();
 

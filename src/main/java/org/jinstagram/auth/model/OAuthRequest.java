@@ -1,7 +1,7 @@
 package org.jinstagram.auth.model;
 
 import org.jinstagram.http.Request;
-import org.jinstagram.http.Verbs;
+import org.springframework.http.HttpMethod;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,7 +22,7 @@ public class OAuthRequest extends Request {
 	 * @param verb Http verb/method
 	 * @param url resource URL
 	 */
-	public OAuthRequest(Verbs verb, String url) {
+	public OAuthRequest(HttpMethod verb, String url) {
 		super(verb, url);
 
 		this.oauthParameters = new HashMap<String, String>();

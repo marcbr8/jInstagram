@@ -1,21 +1,20 @@
 package org.jinstagram.realtime;
 
-import static org.jinstagram.Instagram.configureConnectionSettings;
-
+import com.google.gson.Gson;
 import org.jinstagram.InstagramConfig;
 import org.jinstagram.auth.model.OAuthConstants;
 import org.jinstagram.auth.model.OAuthRequest;
 import org.jinstagram.exceptions.InstagramException;
 import org.jinstagram.http.Response;
-import org.jinstagram.http.Verbs;
 import org.jinstagram.model.Methods;
 import org.jinstagram.utils.Preconditions;
-
-import com.google.gson.Gson;
+import org.springframework.http.HttpMethod;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+
+import static org.jinstagram.Instagram.configureConnectionSettings;
 
 @Deprecated
 public class InstagramSubscription {
@@ -189,7 +188,7 @@ public class InstagramSubscription {
 		}
 		Preconditions.checkEmptyString(callback, "You must provide a callback url");
 
-        final OAuthRequest request = prepareOAuthRequest(Verbs.POST);
+		final OAuthRequest request = prepareOAuthRequest(HttpMethod.POST);
 		request.addBodyParameter(Constants.ASPECT, "media");
 		
 		for(Map.Entry<String, String> entry: this.params.entrySet()){
@@ -210,8 +209,8 @@ public class InstagramSubscription {
      * @param id the id of the subscription to remove
      */
     public SubscriptionResponse deleteSubscription(String id) throws InstagramException {
-        final OAuthRequest request = prepareOAuthRequest(Verbs.DELETE);
-        request.addQuerystringParameter("id", id);
+		final OAuthRequest request = prepareOAuthRequest(HttpMethod.DELETE);
+		request.addQuerystringParameter("id", id);
 
         try {
             final Response response = request.send();
@@ -227,7 +226,7 @@ public class InstagramSubscription {
      * @return the response of this request, holding mainly the code
      */
 	public SubscriptionResponse deleteAllSubscription() throws InstagramException {
-        final OAuthRequest request = prepareOAuthRequest(Verbs.DELETE);
+		final OAuthRequest request = prepareOAuthRequest(HttpMethod.DELETE);
 		request.addQuerystringParameter(Constants.SUBSCRIPTION_TYPE, "all");
 
         try {
@@ -244,7 +243,7 @@ public class InstagramSubscription {
      * @return the active subscription
      */
 	public SubscriptionsListResponse getSubscriptionList() throws InstagramException {
-		final OAuthRequest request = prepareOAuthRequest(Verbs.GET);
+		final OAuthRequest request = prepareOAuthRequest(HttpMethod.GET);
 
         try {
             final Response response = request.send();
@@ -254,9 +253,9 @@ public class InstagramSubscription {
         }
 	}
 
-    private OAuthRequest prepareOAuthRequest(Verbs verb) {
-    	String clientId = params.get(Constants.CLIENT_ID);
-        Preconditions.checkEmptyString(clientId, "You must provide a clientId key");
+	private OAuthRequest prepareOAuthRequest(HttpMethod verb) {
+		String clientId = params.get(Constants.CLIENT_ID);
+		Preconditions.checkEmptyString(clientId, "You must provide a clientId key");
   
         String clientSecret = params.get(Constants.CLIENT_SECRET);
         Preconditions.checkEmptyString(clientSecret, "You must provide a clientSecret");

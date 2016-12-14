@@ -1,12 +1,12 @@
 package org.jinstagram.auth;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
 import org.jinstagram.auth.model.OAuthConfig;
 import org.jinstagram.auth.oauth.InstagramService;
-import org.jinstagram.http.Verbs;
 import org.junit.Test;
+import org.springframework.http.HttpMethod;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * The class <code>InstagramApiTest</code> contains tests for the class
@@ -78,13 +78,13 @@ public class InstagramApiTest {
 	public void testGetAccessTokenVerb_1() throws Exception {
 		InstagramApi fixture = new InstagramApi();
 
-		Verbs result = fixture.getAccessTokenVerb();
+		HttpMethod result = fixture.getAccessTokenVerb();
 
 		// add additional test code here
 		assertNotNull(result);
 		assertEquals("POST", result.name());
 		assertEquals("POST", result.toString());
-		assertEquals(1, result.ordinal());
+		assertEquals(2, result.ordinal());
 	}
 
 	/**

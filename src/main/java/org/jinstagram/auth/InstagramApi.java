@@ -1,27 +1,26 @@
 package org.jinstagram.auth;
 
-import static org.jinstagram.http.URLUtils.formURLEncode;
-
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonParser;
 import org.apache.commons.lang3.StringUtils;
 import org.jinstagram.auth.exceptions.OAuthException;
 import org.jinstagram.auth.model.Constants;
 import org.jinstagram.auth.model.OAuthConfig;
 import org.jinstagram.auth.model.Token;
 import org.jinstagram.auth.oauth.InstagramService;
-import org.jinstagram.http.Verbs;
 import org.jinstagram.utils.Preconditions;
+import org.springframework.http.HttpMethod;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
-import com.google.gson.JsonParser;
+import static org.jinstagram.http.URLUtils.formURLEncode;
 
 public class InstagramApi {
 	public String getAccessTokenEndpoint() {
 		return Constants.ACCESS_TOKEN_ENDPOINT;
 	}
 
-	public Verbs getAccessTokenVerb() {
-		return Verbs.POST;
+	public HttpMethod getAccessTokenVerb() {
+		return HttpMethod.POST;
 	}
 
 	public String getAuthorizationUrl(OAuthConfig config) {
